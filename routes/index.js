@@ -4,7 +4,10 @@ const router = require('koa-router')({
 
 const controllers = require('../controllers')
 
+// 新增用户
 router.post('/user/add', controllers.user.add)
+// 登录
+router.post('/user/login', controllers.user.login)
 
 
 module.exports = router

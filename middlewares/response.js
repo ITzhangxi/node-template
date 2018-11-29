@@ -1,8 +1,16 @@
 const debug = require('debug')
 module.exports = async (ctx, next) => {
     try {
+        console.log(ctx.url);
+        if (ctx.session.userInfo === ctx.state.userInfo && ctx.url === '/mall/user/login') {
+            await next()
+        } else {
+            ctx.state.code = -1
+            ctx.state.data = {
+                message: '请先登录'
+            }
+        }
         // 调用下一个middleware
-        await next()
 
         // 处理响应结果
         // 如果直接写入在 body 中，则不作处理
