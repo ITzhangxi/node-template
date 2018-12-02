@@ -8,6 +8,8 @@ const controllers = require('../controllers')
 router.post('/user/add', controllers.user.add)
 // 登录
 router.post('/user/login', controllers.user.login)
+// 给前端返回验证码
+router.get('/user/captcha', controllers.user.captcha)
 
 
 module.exports = router

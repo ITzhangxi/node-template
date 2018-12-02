@@ -4,13 +4,29 @@ const DB = require('./modules/db'),
     app = new Koa(),
     Config = require('./config'),
     response = require('./middlewares/response'),
-    session = require('koa-session')
+    session = require('koa-session'),
+    cors = require('koa2-cors');
 
 // 将DB挂在全局
 global.DB = DB
+// 解决前后端跨域问题
+app.use(cors({
+    // origin: function (ctx) {
+    //     if (ctx.url === '/mall') {
+    //         return true;
+    //     }
+    //     return '*';
+    // },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
 
 // 使用响应处理中间件
 app.use(response)
+
 
 // 配置session
 app.keys = ['some secret hurr'];

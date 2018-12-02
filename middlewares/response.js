@@ -1,17 +1,20 @@
 const debug = require('debug')
+const url = require('url')
 module.exports = async (ctx, next) => {
+    console.log(url.parse(ctx.url).pathname);
     try {
-        console.log(ctx.url);
-        if (ctx.session.userInfo === ctx.state.userInfo && ctx.url === '/mall/user/login') {
+        if (ctx.url === '/mall/user/login' || url.parse(ctx.url).pathname === '/mall/user/captcha') {
+            await next()
+        } else if (ctx.session.userInfo && ctx.state.userInfo && ctx.state.userInfo === ctx.session.userInfo) {
             await next()
         } else {
             ctx.state.code = -1
             ctx.state.data = {
                 message: '请先登录'
-            }
+            };
         }
-        // 调用下一个middleware
 
+        // 调用下一个middleware
         // 处理响应结果
         // 如果直接写入在 body 中，则不作处理
         // 如果写在 ctx.body 为空，则使用 state 作为响应
