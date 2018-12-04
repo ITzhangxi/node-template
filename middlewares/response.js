@@ -3,7 +3,7 @@ const url = require('url')
 module.exports = async (ctx, next) => {
     console.log(url.parse(ctx.url).pathname);
     try {
-        if (ctx.url === '/mall/user/login' || url.parse(ctx.url).pathname === '/mall/user/captcha') {
+        if (ctx.url === '/mall/user/login' || url.parse(ctx.url).pathname === '/mall/user/captcha' || url.parse(ctx.url).pathname === '/mall/user/add') {
             await next()
         } else if (ctx.session.userInfo && ctx.state.userInfo && ctx.state.userInfo === ctx.session.userInfo) {
             await next()

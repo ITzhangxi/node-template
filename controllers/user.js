@@ -34,12 +34,6 @@ exports.login = async ctx => {
         // console.log(captcha === ctx.state.captcha);
         // console.log(ctx.session.captcha);
         // console.log(captcha);
-        console.log(username);
-        console.log(password);
-        console.log(captcha);
-        console.log(ctx.session.captcha);
-        console.log(captcha.toLowerCase() === ctx.session.captcha.toLowerCase());
-        console.log(username && password && captcha.toLowerCase() === ctx.session.captcha.toLowerCase());
         if (username && password && captcha.toLowerCase() === ctx.session.captcha.toLowerCase()) {
             await DB.find('user', {
                 username,
